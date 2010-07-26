@@ -727,7 +727,7 @@ class HtmlHelper extends AppHelper {
 		if (!is_array($options)) {
 			$options = array('class' => $options);
 		}
-		if (is_array($options) && isset($options['selfclosing']) && $options['selfclosing']) {
+		if (isset($options['selfclosing']) && $options['selfclosing']) {
 			$tag = 'tagselfclosing';
 			unset($options['selfclosing']);
 		} elseif ($text === null) {
