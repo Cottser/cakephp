@@ -72,6 +72,7 @@ class HtmlHelper extends AppHelper {
 		'tag' => '<%s%s>%s</%s>',
 		'tagstart' => '<%s%s>',
 		'tagend' => '</%s>',
+		'tagselfclosing' => '<%s%s/>',
 		'para' => '<p%s>%s</p>',
 		'parastart' => '<p%s>',
 		'label' => '<label for="%s"%s>%s</label>',
@@ -708,6 +709,7 @@ class HtmlHelper extends AppHelper {
  * ### Options
  *
  * - `escape` Whether or not the contents should be html_entity escaped.
+ * - `selfclosing` Whether the tag should be output as a self-closing tag like <img/>
  *
  * @param string $name Tag name.
  * @param string $text String content that will appear inside the div element.
@@ -725,7 +727,10 @@ class HtmlHelper extends AppHelper {
 		if (!is_array($options)) {
 			$options = array('class' => $options);
 		}
-		if ($text === null) {
+		if (is_array($options) && isset($options['selfclosing']) && $options['selfclosing']) {
+			$tag = 'tagselfclosing';
+			unset($options['selfclosing']);
+		} elseif ($text === null) {
 			$tag = 'tagstart';
 		} else {
 			$tag = 'tag';
